@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+
+    <section class="character-selection-page">
+        <h1>Welcome to Tic Tac Toe!</h1>
+        <h2>Choose your Characters, left click to choose player 1, right click for player 2</h2>
+        <div class="character-selection-grid">
+            <div class="character-selection-image" style="background: url('images/CasualAvatar_00.png'); background-size: cover;"></div>
+            <div class="character-selection-image" style="background: url('images/CasualAvatar_01.png'); background-size: cover;"></div>
+            <div class="character-selection-image" style="background: url('images/CasualAvatar_02.png'); background-size: cover;"></div>
+            <div class="character-selection-image" style="background: url('images/CasualAvatar_09.png'); background-size: cover;"></div>
+            <div class="character-selection-image" style="background: url('images/CasualAvatar_04.png'); background-size: cover;"></div>
+            <div class="character-selection-image" style="background: url('images/CasualAvatar_05.png'); background-size: cover;"></div>
+            <div class="character-selection-image" style="background: url('images/CasualAvatar_06.png'); background-size: cover;"></div>
+            <div class="character-selection-image" style="background: url('images/CasualAvatar_07.png'); background-size: cover;"></div>
+            <div class="character-selection-image" style="background: url('images/CasualAvatar_08.png'); background-size: cover;"></div>
+        </div>
+        <button class="start-game-btn">Play!</button>
+        <p class="start-game-btn-text"></p>
+    </section>
+
+    <section class="game-page">
+        <div class="game-bar">
+        <div class="player-one-game-bar">
+            Player One:
+        </div>
+        <div class="player-two-game-bar">
+            Player Two:
+        </div>
+    </div>
+        <div class="game-grid">
+            <div class="game-grid-box" data-boxnumber="1" data-clicked = 'false'></div>
+            <div class="game-grid-box" data-boxnumber="2" data-clicked = 'false'></div>
+            <div class="game-grid-box" data-boxnumber="3" data-clicked = 'false'></div>
+            <div class="game-grid-box" data-boxnumber="4" data-clicked = 'false'></div>
+            <div class="game-grid-box" data-boxnumber="5" data-clicked = 'false'></div>
+            <div class="game-grid-box" data-boxnumber="6" data-clicked = 'false'></div>
+            <div class="game-grid-box" data-boxnumber="7" data-clicked = 'false'></div>
+            <div class="game-grid-box" data-boxnumber="8" data-clicked = 'false'></div>
+            <div class="game-grid-box" data-boxnumber="9" data-clicked = 'false'></div>
+        </div>
+        <div class="game-status-text"></div>
+    </section>
+
+    <section class="end-game-page">
+        <h1>Game Over</h1>
+        <h2></h2>
+        <button class="play-again-btn">Play Again</button>
+        <button class="choose-new-characters-btn">Select New Characters</button>
+    </section>
+    
+
+    <script src="scripts/app.js"></script>
+</body>
+</html>
