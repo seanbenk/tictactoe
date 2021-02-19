@@ -1,5 +1,9 @@
 let characterSelectionPage = document.querySelector('.character-selection-page');
 let characterSelectionImages = document.querySelectorAll('.character-selection-image');
+let playerOneNameInput = document.querySelector('.player-one-name-input');
+let playerTwoNameInput = document.querySelector('.player-two-name-input');
+let playerOneColorChoices = document.querySelectorAll('.player-one-color-grid .color-box');
+let playerTwoColorChoices = document.querySelectorAll('.player-two-color-grid .color-box');
 let startGameBtn = document.querySelector('.start-game-btn');
 let startGameBtnText = document.querySelector('.start-game-btn-text');
 let gamePage = document.querySelector('.game-page');
@@ -7,40 +11,60 @@ let gamePageGridBoxes = document.querySelectorAll('.game-grid-box');
 let playerOneGameBar = document.querySelector('.player-one-game-bar');
 let playerTwoGameBar = document.querySelector('.player-two-game-bar');
 let gameStatusText = document.querySelector('.game-status-text');
+let endGameText = document.querySelector('.end-game-text');
 let endGamePage = document.querySelector('.end-game-page');
 let playAgainBtn = document.querySelector('.play-again-btn');
 let chooseNewCharacterBtn = document.querySelector('.choose-new-characters-btn');
+
 
 //VARIABLES//
 
 let players = {
     one: {
-        name: 'player One',
+        name: 'Player One',
         avatarLink: '',
+        tokenColor: '',
         movesMade:'',
         score: 0,
         draw: function(event){
-                let naught = document.createElement('div');
-                naught.classList.add('naught');
-                event.target.appendChild(naught);
+            let naught = document.createElement('div');
+            naught.classList.add('naught');
+            naught.style.borderColor = this.tokenColor;
+            event.target.appendChild(naught);
         },
         update: function(event){
             this.movesMade += event.target.dataset.boxnumber;
+        },
+
+        colorSelection: function(event){
+            players.one.tokenColor = event.target.style.background;
+            for (let i = 0; i < playerOneColorChoices.length; i++){
+                playerOneColorChoices[i].style.borderColor = 'lightgray';
+            }
+            event.target.style.borderColor = 'yellow';
         }
-        
     },
     two:{
-        name: 'player Two',
+        name: 'Player Two',
         avatarLink: '',
+        tokenColor: '',
         movesMade:'',
         score: 0,
         draw: function(event){
             let cross = document.createElement('div');
             cross.classList.add('cross');
+            cross.style.background = this.tokenColor;
             event.target.appendChild(cross);
         },
         update: function(event){
             this.movesMade += event.target.dataset.boxnumber;
+        },
+        colorSelection: function(event){
+            players.two.tokenColor = event.target.style.background;
+            for (let i = 0; i < playerTwoColorChoices.length; i++){
+                playerTwoColorChoices[i].style.borderColor = 'lightgray';
+            }
+            event.target.style.borderColor = 'yellow';
         }
     }
 }
@@ -109,6 +133,10 @@ function endGamePageSetup(){
 function playGameSetup(){
     players.one.movesMade = '';
     players.two.movesMade = '';
+    players.one.name = playerOneNameInput.value;
+    players.two.name = playerTwoNameInput.value;
+    playerOneGameBar.textContent = players.one.name + ' :' + String(players.one.score);
+        playerTwoGameBar.textContent = players.two.name + ' :' + String(players.two.score);
     movesCounter = 0;
     gameStatusText.textContent = activePlayer.name + "'s turn";
     resetBoard();
@@ -151,8 +179,6 @@ function playerTwoSelection(event){
 function selectCharacterAgain(){
     players.one.score = 0;
     players.two.score = 0;
-    playerOneGameBar.textContent = String(players.one.score);
-    playerTwoGameBar.textContent = String(players.two.score);
     characterSelectionPageSetup();
 }
 
@@ -174,6 +200,7 @@ function isWinner(){
     for (let i = 0; i < winningConditions.length; i++){
         if (activePlayer.movesMade.includes(winningConditions[i][0]) && activePlayer.movesMade.includes(winningConditions[i][1]) && activePlayer.movesMade.includes(winningConditions[i][2])){
             activePlayer.score++;
+            endGameText.textContent = activePlayer.name + ' wins this round!'
             return true;
         }
     }
@@ -182,10 +209,13 @@ function isWinner(){
 
 function updateWinStatus(){
     if (isWinner()){
-        playerOneGameBar.textContent = String(players.one.score);
-        playerTwoGameBar.textContent = String(players.two.score);
+        playerOneGameBar.textContent = players.one.name + ' :' + String(players.one.score);
+        playerTwoGameBar.textContent = players.two.name + ' :' + String(players.two.score);
         endGamePageSetup();
-    } 
+    } else if (movesCounter >= 9){
+        endGamePageSetup();
+        endGameText.textContent = 'Draw';
+    }
 }
 
 function handleGameGridClick(event){
@@ -193,19 +223,13 @@ function handleGameGridClick(event){
     if (event.target.dataset.clicked === 'false'){
         activePlayer.draw(event);
         activePlayer.update(event);
+        movesCounter++;
         updateWinStatus();
         switchActivePlayer();
         event.target.dataset.clicked = 'true'
         gameStatusText.textContent = activePlayer.name + "'s turn";
-        movesCounter++;
-    }
-    
-    else{
-        gameStatusText.textContent = 'invalid square bruv';
-    }
-
-    if (movesCounter >= 9){
-        endGamePageSetup();
+    } else{
+        gameStatusText.textContent = 'invalid square';
     }
 }
 
@@ -236,12 +260,19 @@ for (let i = 0; i < characterSelectionImages.length; i++){
     characterSelectionImages[i].addEventListener('contextmenu', playerTwoSelection);
 }
 
+for (let i = 0; i < playerOneColorChoices.length; i++){
+    playerOneColorChoices[i].addEventListener('click', players.one.colorSelection);
+}
+
+for (let i = 0; i < playerTwoColorChoices.length; i++){
+    playerTwoColorChoices[i].addEventListener('click', players.two.colorSelection);
+}
+
 startGameBtn.addEventListener('click', function(){
-    if (players.one.avatarLink != '' && players.two.avatarLink != ''){
-        startGameBtnText.textContent = '';
+    if (players.one.avatarLink != '' && players.two.avatarLink != '' && playerOneNameInput.value != '' && playerTwoNameInput.value != '' && startGameBtnText.textContent != '' && players.one.tokenColor != '' && players.two.tokenColor != ''){
         playGameSetup();
     } else{
-        startGameBtnText.textContent = 'both players have to select a character!';
+        startGameBtnText.textContent = 'both players have to select a character, a colour and enter a name!';
     }
 });
 

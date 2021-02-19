@@ -13,6 +13,16 @@ body{
     margin: 0;
 }
 
+h1{
+    font-size: 1.5rem;
+    margin: 20px 0 0;
+}
+
+h2{
+    font-weight: 400;
+    font-size: 1.3rem;
+    margin: 0 0 20px;
+}
 
 /* Character Selection Page*/
 .character-selection-page{
@@ -59,14 +69,38 @@ body{
     color: black;
 }
 
+.bottom-selection-bar{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.start-game-content{
+    text-align: center;
+}
+
+.player-one-color-grid, .player-two-color-grid{
+    padding: 5%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-row: 1fr 1fr;
+    gap: 4px;
+}
+
+.color-box{
+    border-radius: 10%;
+    border: lightgray solid 3px;
+    box-shadow: inset black 0px 0px 8px 1px;
+    height: 50px;
+}
+
 .start-game-btn{
-    margin-top: 30px;
     font-size: 3rem;
     border: none;
     background: none;
     text-shadow: yellow 0px 0px 3px;
+    height: 50%;
+    outline: none;
 }
-
 
 .start-game-btn:hover{
     color: yellow;
@@ -92,6 +126,7 @@ body{
     height: 200px;
     display: inline-block;
     border-radius: 50%;
+    border: 1px solid black;
 }
 
 .flashing-animation{
@@ -99,7 +134,7 @@ body{
 }
 
 @keyframes flash-anim{
-    0%{box-shadow: yellow 0px 0px 8px 8px;}
+    0%{box-shadow:  yellow 0px 0px 8px 8px;}
     50%{box-shadow: yellow 0px 0px 4px 4px;}
     100%{box-shadow: yellow 0px 0px 8px 8px;}
 }
@@ -112,7 +147,6 @@ body{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    /* box-shadow: black 0px 0px 40px -10px; */
     gap: 5px;
 }
 
@@ -143,6 +177,7 @@ body{
     height: 100%;
     -webkit-animation: bounce-in-top 1.1s both;
     animation: bounce-in-top 1.1s both;
+    visibility: hidden;
 }
 
 .cross::before{
@@ -153,8 +188,9 @@ body{
     top: 10%;
     left: 48%;
     transform: rotate(45deg);
-    background: gray;
+    background: inherit;
     border-radius: 30%;
+    visibility: visible;
 }
 
 .cross::after{
@@ -165,8 +201,9 @@ body{
     top: 10%;
     left: 48%;
     transform: rotate(-45deg);
-    background: gray;
+    background: inherit;
     border-radius: 30%;
+    visibility: visible;
 }
 
 @keyframes cross-animation {
@@ -189,12 +226,23 @@ body{
     left: 0;
     text-align: center;
     transition: opacity linear 400ms;
+    padding-top: 30%;
+}
+
+.end-game-text{
+    font-size: 3em;
+    color: lightblue;
+    text-shadow: black 0px 0px 5px;
 }
 
 .end-game-page button{
     font-size: 3rem;
+    border-radius: 20px;
 }
 
+.end-game-page button:hover{
+    color: lightblue;
+}
 
 
 
