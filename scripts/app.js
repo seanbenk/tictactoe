@@ -89,7 +89,6 @@ let winningConditions = [
 //Functions
 
 function characterSelectionPageSetup(){
-    //show character selection page and hide everything else
     characterSelectionPage.style.display = 'block';
     characterSelectionPage.style.transform = 'scale(1)';
     characterSelectionPage.style.opacity = '1';
@@ -99,8 +98,6 @@ function characterSelectionPageSetup(){
 }
 
 function gamePageSetup(){
-    //show game page and hide everything else
-
     characterSelectionPage.style.opacity = '0';
     setTimeout(function(){
         characterSelectionPage.style.display = 'none';
@@ -121,7 +118,6 @@ function gamePageSetup(){
 }
 
 function endGamePageSetup(){
-    //show end game page and hide everything else
     characterSelectionPage.style.display = 'none';
     characterSelectionPage.style.opacity= '0';
     endGamePage.style.display = 'block';
@@ -219,7 +215,6 @@ function updateWinStatus(){
 }
 
 function handleGameGridClick(event){
-
     if (event.target.dataset.clicked === 'false'){
         activePlayer.draw(event);
         activePlayer.update(event);
@@ -269,7 +264,7 @@ for (let i = 0; i < playerTwoColorChoices.length; i++){
 }
 
 startGameBtn.addEventListener('click', function(){
-    if (players.one.avatarLink != '' && players.two.avatarLink != '' && playerOneNameInput.value != '' && playerTwoNameInput.value != '' && startGameBtnText.textContent != '' && players.one.tokenColor != '' && players.two.tokenColor != ''){
+    if (players.one.avatarLink != '' && players.two.avatarLink != '' && playerOneNameInput.value != '' && playerTwoNameInput.value != '' && playerOneNameInput.value != 'name' && playerTwoNameInput.value != 'name' && startGameBtnText.textContent != '' && players.one.tokenColor != '' && players.two.tokenColor != ''){
         playGameSetup();
     } else{
         startGameBtnText.textContent = 'both players have to select a character, a colour and enter a name!';

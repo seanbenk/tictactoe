@@ -1,7 +1,7 @@
 # Tic Tac Toe
 
-## instructions:
-to start the game the player must first open up a browser and go to the address: https://seanbenk.github.io/tictactoe/
+## Instructions:
+To start the game the player must first open up a browser and go to the address: https://seanbenk.github.io/tictactoe/
 
 This is a two player game
 
